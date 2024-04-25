@@ -22,6 +22,7 @@ import {updateUser} from "@/components/dashboard/users/api/usersApi";
 import {useParams} from "next/navigation";
 import {updateEmptyStringToNull} from "@/lib/helpers";
 import Alert from "@mui/material/Alert";
+import {createApartment, updateApartment} from "@/components/dashboard/apartments/api/apartmentsApi";
 
 const schema = zod.object({
   name: zod.string().min(1, {message: "Поле обязательно"}).max(50, {message: "Максимум 50 символов"}),
@@ -31,10 +32,22 @@ const schema = zod.object({
   entrance: zod.string().min(1, {message: "Поле обязательно"}).max(50, {message: "Максимум 50 символов"}),
   space: zod.string().min(1, {message: "Поле обязательно"}).max(50, {message: "Максимум 50 символов"}),
   image: zod.any(),
-  bill: zod.string().min(1, {message: "Поле обязательно"})
+  bill: zod.object({
+    id: zod.string(),
+    number: zod.string()
+  }).required()
 });
 
-export type updateApartmentValues = zod.infer<typeof schema>;
+type formData = {
+  name: string
+  description: string
+  number: string
+  floor: string
+  entrance: string
+  space: string
+  image: any
+  bill: { id: string, number: string } | null
+}
 
 type Props = {
   apartment: Apartment
@@ -60,7 +73,7 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
     entrance: apartment.entrance?.toString() || '',
     space: apartment.space?.toString() || '',
     image: '',
-    bill: apartment.account.id || ''
+    bill: apartment.account || ''
   }
 
   const {
@@ -69,15 +82,33 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
     setError,
     register,
     formState: {errors, isSubmitting, isSubmitSuccessful},
-  } = useForm<updateApartmentValues>({defaultValues, resolver: zodResolver(schema)});
+  } = useForm<formData>({defaultValues, resolver: zodResolver(schema)});
 
-  const onSubmit = async (values: updateApartmentValues) => {
-    console.log(values)
-    // try {
-    //   await updateUser(userToken, id, updateEmptyStringToNull(values))
-    // } catch (e) {
-    //   setError('root', {message: 'Возникла ошибка'})
-    // }
+  const onSubmit = async (values: formData) => {
+    try {
+      values.image = values.image && values.image[0]
+      const updatedValues = updateEmptyStringToNull(values)
+      const body = {
+        name: updatedValues.name,
+        description: updatedValues.description,
+        number: updatedValues.number,
+        floor: updatedValues.floor,
+        entrance: updatedValues.entrance,
+        space: updatedValues.space,
+        accountId: updatedValues.bill.id
+      }
+      console.log(body)
+      let formData = new FormData()
+      formData.append('apartment', new Blob([JSON.stringify(body)], {
+        type: "application/json"
+      }));
+      formData.append('photo', new Blob([JSON.stringify(values.image)], {
+        type: "multipart/form-data"
+      }));
+      await updateApartment(userToken, id, formData)
+    } catch (e) {
+      setError('root', {message: 'Возникла ошибка'})
+    }
   }
 
   return (
@@ -162,13 +193,12 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               render={({field}) => (
                 <FormControl fullWidth>
                   <Autocomplete
-                    renderInput={(params) => <TextField {...params} helperText={errors?.bill?.message} error={Boolean(errors["bill"])} label="Счет" />}
+                    renderInput={(params) => <TextField {...params} helperText={Boolean(errors["bill"]) && 'Поле обязательно'} error={Boolean(errors["bill"])} label="Счет" />}
                     options={bills}
                     getOptionLabel={(option) => `${option.number || ''}`}
-                    isOptionEqualToValue={(option, value) => option.id === value}
-                    onChange={(_, data) => {
-                      data === null ? field.onChange('') : field.onChange(data?.id);
-                    }}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    onChange={(_, data) => field.onChange(data)}
+                    value={field.value}
                   />
                 </FormControl>
               )}
@@ -184,7 +214,7 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               <input style={{display: 'none'}} type='file' {...register("image")} />
             </Button>
 
-            {isSubmitSuccessful ? <Alert color="success">Пользователь создан</Alert> : null}
+            {isSubmitSuccessful ? <Alert color="success">Апартамент обновлен</Alert> : null}
             {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
           </Stack>
         </CardContent>

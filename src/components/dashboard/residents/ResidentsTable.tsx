@@ -88,7 +88,7 @@ export function ResidentsTable({
                     <TableCell>
                       <Stack sx={{alignItems: 'center'}} direction="row" spacing={2}>
                         <Typography variant="subtitle2">
-                          <Link href={`/dashboard/users/${row.id}`}>
+                          <Link href={`/dashboard/residents/${row.id}`}>
                             {row.id}
                           </Link>
                         </Typography>

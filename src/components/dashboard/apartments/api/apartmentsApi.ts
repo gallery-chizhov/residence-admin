@@ -1,8 +1,9 @@
 'use server'
 
 import {baseUrl} from "@/lib/constants";
-import {revalidateTag} from "next/cache";
+import {revalidatePath, revalidateTag} from "next/cache";
 import {Apartment} from "@/types/types";
+import {updateUserValues} from "@/components/dashboard/users/UpdateUserForm";
 
 export async function getApartments(token: string) {
   const res = await fetch(`${baseUrl}apartment`, {
@@ -32,6 +33,7 @@ export async function createApartment(token: string, data: any) {
   })
   revalidateTag('apartments')
   if (!res.ok) {
+    console.log(res)
     throw new Error('Failed to fetch data')
   }
   return res.json();
@@ -66,4 +68,20 @@ export async function getApartment(token: string, id: string): Promise<Apartment
   }
 
   return res.json()
+}
+
+export async function updateApartment(token: string, id: string, data: any) {
+  const res = await fetch(`${baseUrl}apartment/${id}`, {
+    method: 'PUT',
+    body: data,
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  })
+  revalidatePath('/dashboard/apartments/[id]')
+  if (!res.ok) {
+    console.log(res)
+    throw new Error('Failed to fetch data')
+  }
+  return;
 }

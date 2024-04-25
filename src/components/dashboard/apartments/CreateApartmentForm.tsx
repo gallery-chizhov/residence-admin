@@ -30,10 +30,22 @@ const schema = zod.object({
   entrance: zod.string().min(1, {message: "Поле обязательно"}).max(50, {message: "Максимум 50 символов"}),
   space: zod.string().min(1, {message: "Поле обязательно"}).max(50, {message: "Максимум 50 символов"}),
   image: zod.any(),
-  bill: zod.any()
+  bill: zod.object({
+    id: zod.string(),
+    number: zod.string()
+  }).required()
 });
 
-export type createApartmentValues = zod.infer<typeof schema>;
+type formData = {
+  name: string
+  description: string
+  number: string
+  floor: string
+  entrance: string
+  space: string
+  image: any
+  bill: { id: string, number: string } | null
+}
 
 type Props = {
   bills: Bill[]
@@ -61,9 +73,10 @@ const CreateApartmentForm = ({bills}: Props) => {
     reset,
     register,
     formState: {errors, isSubmitting, isSubmitSuccessful},
-  } = useForm<createApartmentValues>({defaultValues, resolver: zodResolver(schema)});
+  } = useForm<formData>({defaultValues, resolver: zodResolver(schema)});
 
-  const onSubmit = async (values: createApartmentValues) => {
+  const onSubmit = async (values: formData) => {
+    // console.log(values, errors)
     try {
       values.image = values.image && values.image[0]
       const updatedValues = updateEmptyStringToNull(values)
@@ -76,6 +89,7 @@ const CreateApartmentForm = ({bills}: Props) => {
         space: updatedValues.space,
         accountId: updatedValues.bill.id
       }
+      console.log(body)
       let formData = new FormData()
       formData.append('apartment', new Blob([JSON.stringify(body)], {
         type: "application/json"
@@ -85,7 +99,6 @@ const CreateApartmentForm = ({bills}: Props) => {
       }));
       await createApartment(userToken, formData)
       reset()
-      console.log(values)
     } catch (e) {
       setError('root', {message: 'Возникла ошибка'})
     }
@@ -172,7 +185,7 @@ const CreateApartmentForm = ({bills}: Props) => {
               render={({field}) => (
                 <FormControl fullWidth>
                   <Autocomplete
-                    renderInput={(params) => <TextField {...params} helperText={'Поле обязательно'} error={Boolean(errors["bill"])} label="Счет" />}
+                    renderInput={(params) => <TextField {...params} helperText={Boolean(errors["bill"]) && 'Поле обязательно'} error={Boolean(errors["bill"])} label="Счет" />}
                     options={bills}
                     getOptionLabel={(option) => `${option.number || ''}`}
                     isOptionEqualToValue={(option, value) => option.id === value.id}
