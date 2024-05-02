@@ -25,6 +25,7 @@ import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import {Resident} from "@/types/types";
 import {deleteResident} from "@/components/dashboard/residents/api/residentsApi";
+import ResidentTableRow from "@/components/dashboard/residents/ResidentTableRow";
 
 function noop(): void {
   // do nothing
@@ -74,37 +75,18 @@ export function ResidentsTable({
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>Lastname</TableCell>
-                <TableCell>Firstname</TableCell>
-                <TableCell>Middlename</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell></TableCell>
+                <TableCell>Фамилия</TableCell>
+                <TableCell>Имя</TableCell>
+                <TableCell>Телефон</TableCell>
+                <TableCell>Активировать</TableCell>
+                <TableCell>Удалить</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => {
                 return (
-                  <TableRow hover key={row.id}>
-                    <TableCell>
-                      <Stack sx={{alignItems: 'center'}} direction="row" spacing={2}>
-                        <Typography variant="subtitle2">
-                          <Link href={`/dashboard/residents/${row.id}`}>
-                            {row.id}
-                          </Link>
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>{row.lastName}</TableCell>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.middleName}</TableCell>
-                    <TableCell>{row.phone}</TableCell>
-                    <TableCell>
-                      <IconButton onClick={() => handleClickOpen(row.id ?? '')}>
-                        <Trash size={32}/>
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
+                  <ResidentTableRow resident={row} key={row.id} />
+                )
               })}
             </TableBody>
           </Table>

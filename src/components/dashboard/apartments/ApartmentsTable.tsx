@@ -24,6 +24,7 @@ import {deleteUser} from "@/components/dashboard/users/api/usersApi";
 import {useSession} from "next-auth/react";
 import {User} from "@/types/types";
 import {deleteApartament} from "@/components/dashboard/apartments/api/apartmentsApi";
+import ApartmentsTableRow from "@/components/dashboard/apartments/ApartmentsTableRow";
 
 function noop(): void {
   // do nothing
@@ -42,28 +43,6 @@ export function ApartamentsTable({
                              page = 0,
                              rowsPerPage = 0,
                            }: CustomersTableProps): React.JSX.Element {
-  const [openDeleteUserDialog, setOpenDeleteUserDialog] = React.useState(false);
-  const [currentId, setCurrentId] = React.useState('')
-  const session = useSession()
-  const userToken = session.data?.user.token || '';
-
-  const handleClickOpen = (id: string) => {
-    setOpenDeleteUserDialog(true);
-    setCurrentId(id)
-  };
-
-  const handleClose = () => {
-    setOpenDeleteUserDialog(false);
-  };
-
-  const handleDeleteApartment = async (id: string) => {
-    try {
-      await deleteApartament(userToken, id)
-      setOpenDeleteUserDialog(false)
-    } catch (e) {
-      console.log(e)
-    }
-  }
 
   return (
     <>
@@ -73,36 +52,17 @@ export function ApartamentsTable({
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>Login</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Signed Up</TableCell>
-                <TableCell></TableCell>
+                <TableCell>Название</TableCell>
+                <TableCell>Номер</TableCell>
+                <TableCell>Этаж</TableCell>
+                <TableCell>Активировать</TableCell>
+                <TableCell>Удалить</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row: any) => {
                 return (
-                  <TableRow hover key={row.id}>
-                    <TableCell>
-                      <Stack sx={{alignItems: 'center'}} direction="row" spacing={2}>
-                        <Typography variant="subtitle2">
-                          <Link href={`/dashboard/apartments/${row.id}`}>
-                            {row.id}
-                          </Link>
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.phone}</TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell>{dayjs(row.createdAt).format('MMM D, YYYY')}</TableCell>
-                    <TableCell>
-                      <IconButton onClick={() => handleClickOpen(row.id ?? '')}>
-                        <Trash size={32}/>
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
+                  <ApartmentsTableRow apartment={row} key={row.id} />
                 );
               })}
             </TableBody>
@@ -120,23 +80,6 @@ export function ApartamentsTable({
         />
       </Card>
 
-
-      <Dialog
-        open={openDeleteUserDialog}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Удалить апартамент?
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={handleClose}>Отмена</Button>
-          <Button onClick={() => handleDeleteApartment(currentId)} autoFocus>
-            Удалить
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 }

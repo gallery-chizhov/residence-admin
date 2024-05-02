@@ -6,8 +6,8 @@ import {updateUserValues} from "@/components/dashboard/users/UpdateUserForm";
 import {createUserValues} from "@/components/dashboard/users/CreateUserForm";
 import {revalidatePath, revalidateTag} from "next/cache";
 
-export async function getUsers(token: string) {
-  const res = await fetch(`${baseUrl}user`, {
+export async function getUsers(token: string, page: number) {
+  const res = await fetch(`${baseUrl}user?page=${page}&size=10`, {
     headers: {
       "Authorization": `Bearer ${token}`
     },
@@ -17,6 +17,7 @@ export async function getUsers(token: string) {
   })
 
   if (!res.ok) {
+    console.log(res)
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
@@ -116,6 +117,36 @@ export async function deleteUser(token: string, id: string) {
   })
   revalidateTag('users')
   if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return;
+}
+
+export async function activateUser(token: string, id: string) {
+  const res = await fetch(`${baseUrl}user/${id}/on`, {
+    method: 'PUT',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  revalidateTag('users')
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  return;
+}
+
+export async function deactivateUser(token: string, id: string) {
+  const res = await fetch(`${baseUrl}user/${id}/off`, {
+    method: 'PUT',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  revalidateTag('users')
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
   return;

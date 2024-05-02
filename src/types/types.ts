@@ -1,6 +1,6 @@
 export type User = {
-  id: string | null
-  enabled: boolean | null
+  id: string
+  enabled: boolean
   createdAt: Date | null
   updatedAt: Date | null
   login: string | null
@@ -12,8 +12,8 @@ export type User = {
 }
 
 export type Resident = {
-  id: string | null
-  enabled: boolean | null
+  id: string
+  enabled: boolean
   createdAt: Date | null
   createdBy: Auditor | null
   updatedAt: Date | null
@@ -23,6 +23,7 @@ export type Resident = {
   middleName: string | null
   phone: string | null
   email: string | null
+  apartments: Apartment[]
 }
 
 export type Auditor = {
@@ -31,8 +32,8 @@ export type Auditor = {
 }
 
 export type Apartment = {
-  id: string | null
-  enabled: boolean | null
+  id: string
+  enabled: boolean
   createdAt: Date | null
   createdBy: Auditor | null
   updatedAt: Date | null

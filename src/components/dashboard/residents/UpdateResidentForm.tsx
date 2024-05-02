@@ -24,6 +24,7 @@ import {updateUser} from "@/components/dashboard/users/api/usersApi";
 import {useParams} from "next/navigation";
 import {updateEmptyStringToNull} from "@/lib/helpers";
 import Alert from "@mui/material/Alert";
+import {updateResident} from "@/components/dashboard/residents/api/residentsApi";
 
 const schema = zod.object({
   lastname: zod.string().min(1, {message: "Поле обязательно"}).max(100, {message: "Максимум 100 символов"}),
@@ -67,7 +68,16 @@ const UpdateUserForm = ({resident}: Props) => {
 
   const onSubmit = async (values: updateResidentValues) => {
     try {
-      await update(userToken, id, updateEmptyStringToNull(values))
+      let data = updateEmptyStringToNull(values)
+      const body = {
+        lastName: data.lastname,
+        firstName: data.firstname,
+        middleName: data.middlename,
+        email: data.email,
+        phone: data.phone
+      }
+      console.log(JSON.stringify(body))
+      await updateResident(userToken, id, JSON.stringify(body))
     } catch (e) {
       setError('root', {message: 'Возникла ошибка'})
     }

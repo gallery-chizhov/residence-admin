@@ -89,7 +89,6 @@ const CreateApartmentForm = ({bills}: Props) => {
         space: updatedValues.space,
         accountId: updatedValues.bill.id
       }
-      console.log(body)
       let formData = new FormData()
       formData.append('apartment', new Blob([JSON.stringify(body)], {
         type: "application/json"

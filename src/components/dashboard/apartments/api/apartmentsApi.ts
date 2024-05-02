@@ -19,7 +19,23 @@ export async function getApartments(token: string) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
+  return res.json()
+}
 
+export async function getApartmentsAll(token: string) {
+  const res = await fetch(`${baseUrl}apartment/all`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    next: {
+      tags: ['apartments']
+    }
+  })
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
   return res.json()
 }
 
@@ -81,6 +97,36 @@ export async function updateApartment(token: string, id: string, data: any) {
   revalidatePath('/dashboard/apartments/[id]')
   if (!res.ok) {
     console.log(res)
+    throw new Error('Failed to fetch data')
+  }
+  return;
+}
+
+export async function activateApartment(token: string, id: string) {
+  const res = await fetch(`${baseUrl}apartment/${id}/on`, {
+    method: 'PUT',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  revalidateTag('apartments')
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  return;
+}
+
+export async function deactivateApartment(token: string, id: string) {
+  const res = await fetch(`${baseUrl}apartment/${id}/off`, {
+    method: 'PUT',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  revalidateTag('apartments')
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
   return;

@@ -2,22 +2,19 @@
 
 import * as React from 'react';
 import RouterLink from 'next/link';
-import { usePathname } from 'next/navigation';
+import {usePathname} from 'next/navigation';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { ArrowSquareUpRight as ArrowSquareUpRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowSquareUpRight';
-import { CaretUpDown as CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr/CaretUpDown';
 
-import type { NavItemConfig } from '@/types/nav';
-import { paths } from '@/paths';
-import { isNavItemActive } from '@/lib/is-nav-item-active';
-import { Logo } from '@/components/core/logo';
+import type {NavItemConfig} from '@/types/nav';
+import {paths} from '@/paths';
+import {isNavItemActive} from '@/lib/is-nav-item-active';
+import {Logo} from '@/components/core/logo';
 
-import { navItems } from './config';
-import { navIcons } from './nav-icons';
+import {navItems} from './config';
+import {navIcons} from './nav-icons';
 
 export function SideNav(): React.JSX.Element {
   const pathname = usePathname();
@@ -83,8 +80,8 @@ interface NavItemProps extends Omit<NavItemConfig, 'items'> {
   pathname: string;
 }
 
-function NavItem({ disabled, external, href, icon, matcher, pathname, title }: NavItemProps): React.JSX.Element {
-  const active = isNavItemActive({ disabled, external, href, matcher, pathname });
+function NavItem({ disabled, external, href, icon, pathname, title }: NavItemProps): React.JSX.Element {
+  const active = isNavItemActive({ disabled, external, href, pathname });
   const Icon = icon ? navIcons[icon] : null;
 
   return (

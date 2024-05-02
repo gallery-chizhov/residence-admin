@@ -6,20 +6,25 @@ import Typography from '@mui/material/Typography';
 import {Plus as PlusIcon} from '@phosphor-icons/react/dist/ssr/Plus';
 
 import {config} from '@/config';
-import {CustomersTable} from '@/components/dashboard/customer/customers-table';
-import {authConfig} from "@/lib/auth/auth";
-import {getServerSession} from "next-auth";
-import {getUsers} from "@/components/dashboard/users/api/usersApi";
 import Link from "next/link";
 import {UsersTable} from "@/components/dashboard/users/UsersTable";
+import {getServerSession} from "next-auth";
+import {authConfig} from "@/lib/auth/auth";
+import {getUsers} from "@/components/dashboard/users/api/usersApi";
 
 export const metadata = {title: `Customers | Dashboard | ${config.site.name}`} satisfies Metadata;
 
-export default async function Page() {
+export default async function Page({
+                                     searchParams,
+                                   }: {
+  searchParams?: {
+    page: string
+  }
+}) {
+  const page = Number(searchParams?.page) || 0;
   const session = await getServerSession(authConfig)
-  const users = await getUsers(session?.user?.token || '')
-  const page = 0;
-  const rowsPerPage = 5;
+  const users = await getUsers(session?.user?.token || '', page)
+  const rowsPerPage = 10;
 
   return (
     <Stack spacing={3}>
@@ -37,10 +42,10 @@ export default async function Page() {
       </Stack>
       {/*<CustomersFilters />*/}
       <UsersTable
-        count={users.totalElements}
         page={page}
-        rows={users.content}
         rowsPerPage={rowsPerPage}
+        rows={users.content}
+        count={users.totalElements}
       />
     </Stack>
   );
