@@ -6,7 +6,7 @@ import TableCell from "@mui/material/TableCell";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import {Switch} from "@mui/material";
+import {DialogContent, Switch} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Trash} from "@phosphor-icons/react/dist/ssr/Trash";
 import {User} from "@/types/types";
@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import {activateUser, deactivateUser, deleteUser} from "@/components/dashboard/users/api/usersApi";
 import {useSession} from "next-auth/react";
+import Alert from "@mui/material/Alert";
 
 type Props = {
   user: User
@@ -25,6 +26,7 @@ const UsersTableRow = ({user}: Props) => {
   const session = useSession()
   const userToken = session.data?.user.token || '';
   const [openDeleteUserDialog, setOpenDeleteUserDialog] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState(false)
   const [checked, setChecked] = React.useState(user.enabled);
 
   const handleClickOpen = () => {
@@ -33,6 +35,7 @@ const UsersTableRow = ({user}: Props) => {
 
   const handleClose = () => {
     setOpenDeleteUserDialog(false);
+    setDeleteError(false)
   };
 
   const handleDeactivateUser = async () => {
@@ -50,6 +53,7 @@ const UsersTableRow = ({user}: Props) => {
       await deleteUser(userToken, user?.id || '')
       setOpenDeleteUserDialog(false)
     } catch (e) {
+      setDeleteError(true)
       console.log(e)
     }
   }
@@ -102,6 +106,11 @@ const UsersTableRow = ({user}: Props) => {
             Удалить
           </Button>
         </DialogActions>
+        {deleteError &&
+          <DialogContent>
+            <Alert severity="error">Возникла ошибка</Alert>
+          </DialogContent>
+        }
       </Dialog>
     </>
   );

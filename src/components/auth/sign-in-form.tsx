@@ -59,7 +59,7 @@ export function SignInForm(): React.JSX.Element {
   return (
     <Stack spacing={4}>
       <Stack spacing={1}>
-        <Typography variant="h4">Sign in</Typography>
+        <Typography variant="h4">Войти</Typography>
       </Stack>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
@@ -68,8 +68,8 @@ export function SignInForm(): React.JSX.Element {
             name="username"
             render={({field}) => (
               <FormControl error={Boolean(errors.username)}>
-                <InputLabel>Username</InputLabel>
-                <OutlinedInput {...field} label="Email address" />
+                <InputLabel>Логин</InputLabel>
+                <OutlinedInput {...field} label="Логин" />
                 {errors.username ? <FormHelperText>{errors.username.message}</FormHelperText> : null}
               </FormControl>
             )}
@@ -79,7 +79,7 @@ export function SignInForm(): React.JSX.Element {
             name="password"
             render={({field}) => (
               <FormControl error={Boolean(errors.password)}>
-                <InputLabel>Password</InputLabel>
+                <InputLabel>Пароль</InputLabel>
                 <OutlinedInput
                   {...field}
                   endAdornment={
@@ -101,7 +101,7 @@ export function SignInForm(): React.JSX.Element {
                       />
                     )
                   }
-                  label="Password"
+                  label="Пароль"
                   type={showPassword ? 'text' : 'password'}
                 />
                 {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
@@ -110,7 +110,7 @@ export function SignInForm(): React.JSX.Element {
           />
           {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
           <Button type="submit" variant="contained">
-            Sign in
+            Войти
           </Button>
         </Stack>
       </form>
