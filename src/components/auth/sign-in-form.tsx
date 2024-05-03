@@ -56,9 +56,6 @@ export function SignInForm(): React.JSX.Element {
     }
   }
 
-  const test = () => {
-  }
-
   return (
     <Stack spacing={4}>
       <Stack spacing={1}>

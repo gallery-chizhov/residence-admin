@@ -142,7 +142,7 @@ interface NavItemProps extends Omit<NavItemConfig, 'items'> {
 }
 
 function NavItem({ disabled, external, href, icon, matcher, pathname, title }: NavItemProps): React.JSX.Element {
-  const active = isNavItemActive({ disabled, external, href, matcher, pathname });
+  const active = isNavItemActive({ disabled, external, href, pathname });
   const Icon = icon ? navIcons[icon] : null;
 
   return (

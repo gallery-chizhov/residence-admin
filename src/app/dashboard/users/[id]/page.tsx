@@ -5,11 +5,11 @@ import {getServerSession} from "next-auth";
 import {authConfig} from "@/lib/auth/auth";
 import {getUser} from "@/components/dashboard/users/api/usersApi";
 import {UpdateUserPasswordForm} from "@/components/dashboard/users/UpdateUserPasswordForm";
-import {getResidents} from "@/components/dashboard/residents/api/residentsApi";
+import {getResidentsAll} from "@/components/dashboard/residents/api/residentsApi";
 
 export default async function Page({params}: { params: { id: string } }) {
   const session = await getServerSession(authConfig)
-  const residents = await getResidents(session?.user.token || '')
+  const residents = await getResidentsAll(session?.user.token || '')
   const user = await getUser(session?.user?.token || '', params.id)
   return (
     <Stack spacing={3}>

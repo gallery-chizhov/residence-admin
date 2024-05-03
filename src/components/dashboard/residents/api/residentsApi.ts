@@ -24,6 +24,24 @@ export async function getResidents(token: string, page: number) {
   return res.json()
 }
 
+export async function getResidentsAll(token: string) {
+  const res = await fetch(`${baseUrl}resident/all`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    next: {
+      tags: ['residents']
+    }
+  })
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+
 export async function createResident(token: string, data: createResidentValues) {
   const body = {
     lastName: data.lastname,
