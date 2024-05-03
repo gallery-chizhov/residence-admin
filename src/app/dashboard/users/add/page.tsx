@@ -10,7 +10,7 @@ export default async function Page () {
   const residents = await getResidentsAll(session?.user.token || '')
   return (
     <Stack spacing={3}>
-      <CreateUserForm residents={residents.content} />
+      <CreateUserForm residents={residents} />
     </Stack>
   );
 };

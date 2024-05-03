@@ -13,7 +13,7 @@ export default async function Page({params}: { params: { id: string } }) {
   const user = await getUser(session?.user?.token || '', params.id)
   return (
     <Stack spacing={3}>
-      <UpdateUserForm user={user} residents={residents.content}/>
+      <UpdateUserForm user={user} residents={residents}/>
       <UpdateUserPasswordForm/>
     </Stack>
   );
