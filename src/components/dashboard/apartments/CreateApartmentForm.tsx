@@ -76,7 +76,6 @@ const CreateApartmentForm = ({bills}: Props) => {
   } = useForm<formData>({defaultValues, resolver: zodResolver(schema)});
 
   const onSubmit = async (values: formData) => {
-    // console.log(values, errors)
     try {
       values.image = values.image && values.image[0]
       const updatedValues = updateEmptyStringToNull(values)
@@ -114,8 +113,8 @@ const CreateApartmentForm = ({bills}: Props) => {
               name='name'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.name)}>
-                  <InputLabel>name</InputLabel>
-                  <OutlinedInput label="name" {...field} />
+                  <InputLabel>Название</InputLabel>
+                  <OutlinedInput label="Название" {...field} />
                   {errors.name ? <FormHelperText>{errors.name.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -125,8 +124,8 @@ const CreateApartmentForm = ({bills}: Props) => {
               name='description'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.description)}>
-                  <InputLabel>description</InputLabel>
-                  <OutlinedInput label="description" {...field} />
+                  <InputLabel>Описание</InputLabel>
+                  <OutlinedInput label="Описание" {...field} />
                   {errors.description ? <FormHelperText>{errors.description.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -136,8 +135,8 @@ const CreateApartmentForm = ({bills}: Props) => {
               name='number'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.number)}>
-                  <InputLabel>number</InputLabel>
-                  <OutlinedInput label="number" {...field} />
+                  <InputLabel>Номер</InputLabel>
+                  <OutlinedInput label="Номер" {...field} />
                   {errors.number ? <FormHelperText>{errors.number.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -147,8 +146,8 @@ const CreateApartmentForm = ({bills}: Props) => {
               name='floor'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.floor)}>
-                  <InputLabel>floor</InputLabel>
-                  <OutlinedInput label="floor" {...field} />
+                  <InputLabel>Этаж</InputLabel>
+                  <OutlinedInput label="Этаж" {...field} />
                   {errors.floor ? <FormHelperText>{errors.floor.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -159,8 +158,8 @@ const CreateApartmentForm = ({bills}: Props) => {
               name='entrance'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.entrance)}>
-                  <InputLabel>entrance</InputLabel>
-                  <OutlinedInput label="entrance" {...field} />
+                  <InputLabel>Подъезд</InputLabel>
+                  <OutlinedInput label="Подъезд" {...field} />
                   {errors.entrance ? <FormHelperText>{errors.entrance.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -171,8 +170,8 @@ const CreateApartmentForm = ({bills}: Props) => {
               name='space'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.space)}>
-                  <InputLabel>space</InputLabel>
-                  <OutlinedInput label="space" {...field} />
+                  <InputLabel>Площадь</InputLabel>
+                  <OutlinedInput label="Площадь" {...field} />
                   {errors.space ? <FormHelperText>{errors.space.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -200,7 +199,7 @@ const CreateApartmentForm = ({bills}: Props) => {
               variant="contained"
               tabIndex={-1}
             >
-              Upload file
+              Загрузить файл
               <input style={{display: 'none'}} type='file' {...register("image")} />
             </Button>
 
@@ -210,7 +209,7 @@ const CreateApartmentForm = ({bills}: Props) => {
         </CardContent>
         <Divider/>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Create</Button>}
+          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Создать</Button>}
         </CardActions>
       </Card>
     </form>

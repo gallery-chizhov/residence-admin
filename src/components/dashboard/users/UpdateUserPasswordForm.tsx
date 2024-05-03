@@ -80,8 +80,8 @@ export function UpdateUserPasswordForm(): React.JSX.Element {
               name='password'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.password)}>
-                  <InputLabel>Password</InputLabel>
-                  <OutlinedInput label="Password" {...field}
+                  <InputLabel>Пароль</InputLabel>
+                  <OutlinedInput label="Пароль" {...field}
                                  type={showPassword ? 'text' : 'password'}
                                  endAdornment={
                                    showPassword ? (
@@ -111,8 +111,8 @@ export function UpdateUserPasswordForm(): React.JSX.Element {
               name='confirm'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.confirm)}>
-                  <InputLabel>Confirm password</InputLabel>
-                  <OutlinedInput label="Confirm password" {...field}
+                  <InputLabel>Повторите пароль</InputLabel>
+                  <OutlinedInput label="Повторите пароль" {...field}
                                  type={showConfirm ? 'text' : 'password'}
                                  endAdornment={
                                    showConfirm ? (
@@ -143,7 +143,7 @@ export function UpdateUserPasswordForm(): React.JSX.Element {
         </CardContent>
         <Divider/>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-          {isSubmitting ? <CircularProgress/> : <Button type='submit' variant="contained">Update</Button>}
+          {isSubmitting ? <CircularProgress/> : <Button type='submit' variant="contained">Изменить</Button>}
         </CardActions>
       </Card>
     </form>

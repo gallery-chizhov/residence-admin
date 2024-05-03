@@ -47,7 +47,7 @@ export default async function Page({
         <div>
           <Link href={'/dashboard/residents/add'}>
             <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)"/>} variant="contained">
-              Add
+              Добавить
             </Button>
           </Link>
         </div>

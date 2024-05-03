@@ -71,8 +71,8 @@ const CreateResidentForm = () => {
               name='lastname'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.lastname)}>
-                  <InputLabel>Lastname</InputLabel>
-                  <OutlinedInput label="Lastname" {...field} />
+                  <InputLabel>Фамилия</InputLabel>
+                  <OutlinedInput label="Фамилия" {...field} />
                   {errors.lastname ? <FormHelperText>{errors.lastname.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -82,8 +82,8 @@ const CreateResidentForm = () => {
               name='firstname'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.firstname)}>
-                  <InputLabel>Firstname</InputLabel>
-                  <OutlinedInput label="Firstname" {...field} />
+                  <InputLabel>Имя</InputLabel>
+                  <OutlinedInput label="Имя" {...field} />
                   {errors.firstname ? <FormHelperText>{errors.firstname.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -93,8 +93,8 @@ const CreateResidentForm = () => {
               name='middlename'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.middlename)}>
-                  <InputLabel>Middlename</InputLabel>
-                  <OutlinedInput label="Middlename" {...field} />
+                  <InputLabel>Отчество</InputLabel>
+                  <OutlinedInput label="Отчество" {...field} />
                   {errors.middlename ? <FormHelperText>{errors.middlename.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -104,8 +104,8 @@ const CreateResidentForm = () => {
               name='phone'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.phone)}>
-                  <InputLabel>Phone</InputLabel>
-                  <OutlinedInput label="Phone" {...field} />
+                  <InputLabel>Телефон</InputLabel>
+                  <OutlinedInput label="Телефон" {...field} />
                   {errors.phone ? <FormHelperText>{errors.phone.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -128,7 +128,7 @@ const CreateResidentForm = () => {
         </CardContent>
         <Divider/>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Create</Button>}
+          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Создать</Button>}
         </CardActions>
       </Card>
     </form>

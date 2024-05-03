@@ -41,7 +41,6 @@ type Props = {
 }
 
 const UpdateUserForm = ({resident}: Props) => {
-  console.log(resident)
   const session = useSession()
   let {id} = useParams()
   const userToken = session.data?.user.token || '';
@@ -76,7 +75,6 @@ const UpdateUserForm = ({resident}: Props) => {
         email: data.email,
         phone: data.phone
       }
-      console.log(JSON.stringify(body))
       await updateResident(userToken, id, JSON.stringify(body))
     } catch (e) {
       setError('root', {message: 'Возникла ошибка'})
@@ -95,8 +93,8 @@ const UpdateUserForm = ({resident}: Props) => {
               name='lastname'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.lastname)}>
-                  <InputLabel>Lastname</InputLabel>
-                  <OutlinedInput label="Lastname" {...field} />
+                  <InputLabel>Фамилия</InputLabel>
+                  <OutlinedInput label="Фамилия" {...field} />
                   {errors.lastname ? <FormHelperText>{errors.lastname.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -106,8 +104,8 @@ const UpdateUserForm = ({resident}: Props) => {
               name='firstname'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.firstname)}>
-                  <InputLabel>firstname</InputLabel>
-                  <OutlinedInput label="firstname" {...field} />
+                  <InputLabel>Имя</InputLabel>
+                  <OutlinedInput label="Имя" {...field} />
                   {errors.firstname ? <FormHelperText>{errors.firstname.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -117,8 +115,8 @@ const UpdateUserForm = ({resident}: Props) => {
               name='middlename'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.middlename)}>
-                  <InputLabel>middlename</InputLabel>
-                  <OutlinedInput label="Card number" {...field} />
+                  <InputLabel>Отчество</InputLabel>
+                  <OutlinedInput label="Отчество" {...field} />
                   {errors.middlename ? <FormHelperText>{errors.middlename.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -128,8 +126,8 @@ const UpdateUserForm = ({resident}: Props) => {
               name='phone'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.phone)}>
-                  <InputLabel>phone</InputLabel>
-                  <OutlinedInput label="phone" {...field} />
+                  <InputLabel>Телефон</InputLabel>
+                  <OutlinedInput label="Телефон" {...field} />
                   {errors.phone ? <FormHelperText>{errors.phone.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -139,8 +137,8 @@ const UpdateUserForm = ({resident}: Props) => {
               name='email'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.email)}>
-                  <InputLabel>email</InputLabel>
-                  <OutlinedInput label="email" {...field} />
+                  <InputLabel>Email</InputLabel>
+                  <OutlinedInput label="Email" {...field} />
                   {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -152,7 +150,7 @@ const UpdateUserForm = ({resident}: Props) => {
         </CardContent>
         <Divider/>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Update</Button>}
+          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Обновить</Button>}
         </CardActions>
       </Card>
     </form>

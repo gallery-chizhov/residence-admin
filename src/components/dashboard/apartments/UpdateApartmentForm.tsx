@@ -55,7 +55,6 @@ type Props = {
 }
 
 const UpdateUserForm = ({apartment, bills}: Props) => {
-  console.log(apartment)
   const session = useSession()
   let {id} = useParams()
   const userToken = session.data?.user.token || '';
@@ -123,8 +122,8 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               name='name'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.name)}>
-                  <InputLabel>name</InputLabel>
-                  <OutlinedInput label="name" {...field} />
+                  <InputLabel>Название</InputLabel>
+                  <OutlinedInput label="Название" {...field} />
                   {errors.name ? <FormHelperText>{errors.name.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -134,8 +133,8 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               name='description'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.description)}>
-                  <InputLabel>description</InputLabel>
-                  <OutlinedInput label="description" {...field} />
+                  <InputLabel>Описание</InputLabel>
+                  <OutlinedInput label="Описание" {...field} />
                   {errors.description ? <FormHelperText>{errors.description.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -145,8 +144,8 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               name='number'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.number)}>
-                  <InputLabel>number</InputLabel>
-                  <OutlinedInput label="number" {...field} />
+                  <InputLabel>Номер</InputLabel>
+                  <OutlinedInput label="Номер" {...field} />
                   {errors.number ? <FormHelperText>{errors.number.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -156,8 +155,8 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               name='floor'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.floor)}>
-                  <InputLabel>floor</InputLabel>
-                  <OutlinedInput label="floor" {...field} />
+                  <InputLabel>Этаж</InputLabel>
+                  <OutlinedInput label="Этаж" {...field} />
                   {errors.floor ? <FormHelperText>{errors.floor.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -168,8 +167,8 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               name='entrance'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.entrance)}>
-                  <InputLabel>entrance</InputLabel>
-                  <OutlinedInput label="entrance" {...field} />
+                  <InputLabel>Подъезд</InputLabel>
+                  <OutlinedInput label="Подъезд" {...field} />
                   {errors.entrance ? <FormHelperText>{errors.entrance.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -180,8 +179,8 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               name='space'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.space)}>
-                  <InputLabel>space</InputLabel>
-                  <OutlinedInput label="space" {...field} />
+                  <InputLabel>Площадь</InputLabel>
+                  <OutlinedInput label="Площадь" {...field} />
                   {errors.space ? <FormHelperText>{errors.space.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -210,7 +209,7 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
               variant="contained"
               tabIndex={-1}
             >
-              Upload file
+              Загрузить файл
               <input style={{display: 'none'}} type='file' {...register("image")} />
             </Button>
 
@@ -220,7 +219,7 @@ const UpdateUserForm = ({apartment, bills}: Props) => {
         </CardContent>
         <Divider/>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Update</Button>}
+          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Обновить</Button>}
         </CardActions>
       </Card>
     </form>

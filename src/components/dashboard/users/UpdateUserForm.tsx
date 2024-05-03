@@ -87,8 +87,8 @@ const UpdateUserForm = ({user, residents}: Props) => {
               name='login'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.login)}>
-                  <InputLabel>Login</InputLabel>
-                  <OutlinedInput label="Login" {...field} />
+                  <InputLabel>Логин</InputLabel>
+                  <OutlinedInput label="Логин" {...field} />
                   {errors.login ? <FormHelperText>{errors.login.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -98,8 +98,8 @@ const UpdateUserForm = ({user, residents}: Props) => {
               name='phone'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.phone)}>
-                  <InputLabel>Phone</InputLabel>
-                  <OutlinedInput label="Phone" {...field} />
+                  <InputLabel>Телефон</InputLabel>
+                  <OutlinedInput label="Телефон" {...field} />
                   {errors.phone ? <FormHelperText>{errors.phone.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -120,8 +120,8 @@ const UpdateUserForm = ({user, residents}: Props) => {
               name='card'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.card)}>
-                  <InputLabel>Card number</InputLabel>
-                  <OutlinedInput label="Card number" {...field} />
+                  <InputLabel>Номер карты</InputLabel>
+                  <OutlinedInput label="Номер карты" {...field} />
                   {errors.card ? <FormHelperText>{errors.card.message}</FormHelperText> : null}
                 </FormControl>
               )}
@@ -132,9 +132,9 @@ const UpdateUserForm = ({user, residents}: Props) => {
               name='role'
               render={({field}) => (
                 <FormControl fullWidth error={Boolean(errors.role)}>
-                  <InputLabel>Role</InputLabel>
+                  <InputLabel>Роль</InputLabel>
                   <Select
-                    label='role'
+                    label='Роль'
                     {...field}
                   >
                     <MenuItem value={'CUSTOMER'}>CUSTOMER</MenuItem>
@@ -169,7 +169,7 @@ const UpdateUserForm = ({user, residents}: Props) => {
         </CardContent>
         <Divider/>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Update</Button>}
+          {isSubmitting ? <CircularProgress/> : <Button type="submit" variant="contained">Изменить</Button>}
         </CardActions>
       </Card>
     </form>
