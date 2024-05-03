@@ -5,8 +5,8 @@ import {revalidatePath, revalidateTag} from "next/cache";
 import {Apartment} from "@/types/types";
 import {updateUserValues} from "@/components/dashboard/users/UpdateUserForm";
 
-export async function getApartments(token: string) {
-  const res = await fetch(`${baseUrl}apartment`, {
+export async function getApartments(token: string, page: number) {
+  const res = await fetch(`${baseUrl}apartment?page=${page}&size=10` , {
     headers: {
       "Authorization": `Bearer ${token}`
     },

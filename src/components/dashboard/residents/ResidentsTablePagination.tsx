@@ -2,7 +2,7 @@
 
 import React from 'react';
 import TablePagination from "@mui/material/TablePagination";
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 type Props = {
   count: number;
@@ -10,7 +10,7 @@ type Props = {
   rowsPerPage: number;
 }
 
-const UsersTablePagination = ({count, page, rowsPerPage}: Props) => {
+const ResidentsTablePagination = ({count, page, rowsPerPage}: Props) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -24,18 +24,17 @@ const UsersTablePagination = ({count, page, rowsPerPage}: Props) => {
     }
     replace(`${pathname}?${params.toString()}`);
   }
+
   return (
-    <>
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={(event, newPage) => handlePageChange(newPage)}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[-1]}
-      />
-    </>
+    <TablePagination
+      component="div"
+      count={count}
+      onPageChange={(event, newPage) => handlePageChange(newPage)}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      rowsPerPageOptions={[-1]}
+    />
   );
 };
 
-export default UsersTablePagination;
+export default ResidentsTablePagination;

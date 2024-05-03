@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -25,10 +23,7 @@ import {useSession} from "next-auth/react";
 import {User} from "@/types/types";
 import {deleteApartament} from "@/components/dashboard/apartments/api/apartmentsApi";
 import ApartmentsTableRow from "@/components/dashboard/apartments/ApartmentsTableRow";
-
-function noop(): void {
-  // do nothing
-}
+import ApartmentsTablePagination from "@/components/dashboard/apartments/ApartmentsTablePagination";
 
 interface CustomersTableProps {
   count?: number;
@@ -69,17 +64,8 @@ export function ApartamentsTable({
           </Table>
         </Box>
         <Divider/>
-        <TablePagination
-          component="div"
-          count={count}
-          onPageChange={noop}
-          onRowsPerPageChange={noop}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-        />
+        <ApartmentsTablePagination count={count} page={page} rowsPerPage={rowsPerPage} />
       </Card>
-
     </>
   );
 }

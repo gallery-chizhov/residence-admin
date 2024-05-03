@@ -11,10 +11,10 @@ import Typography from '@mui/material/Typography';
 import type {NavItemConfig} from '@/types/nav';
 import {paths} from '@/paths';
 import {isNavItemActive} from '@/lib/is-nav-item-active';
-import {Logo} from '@/components/core/logo';
 
 import {navItems} from './config';
 import {navIcons} from './nav-icons';
+import Image from "next/image";
 
 export function SideNav(): React.JSX.Element {
   const pathname = usePathname();
@@ -49,7 +49,7 @@ export function SideNav(): React.JSX.Element {
     >
       <Stack spacing={2} sx={{ p: 3 }}>
         <Box component={RouterLink} href={paths.home} sx={{ display: 'inline-flex' }}>
-          <Logo color="light" height={32} width={122} />
+          <Image  src={'/assets/residence-logo.jpg'} alt={'logo'} width={200} height={66} />
         </Box>
       </Stack>
       <Divider sx={{ borderColor: 'var(--mui-palette-neutral-700)' }} />

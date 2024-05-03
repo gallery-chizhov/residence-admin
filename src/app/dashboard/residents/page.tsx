@@ -15,12 +15,18 @@ import {authConfig} from "@/lib/auth/auth";
 import {getResidents} from "@/components/dashboard/residents/api/residentsApi";
 import Link from "next/link";
 
-export const metadata = {title: `Customers | Dashboard | ${config.site.name}`} satisfies Metadata;
+export const metadata = {title: `Жители | Dashboard | ${config.site.name}`} satisfies Metadata;
 
-export default async function Page() {
+export default async function Page({
+                                     searchParams,
+                                   }: {
+  searchParams?: {
+    page: string
+  }
+}) {
+  const page = Number(searchParams?.page) || 0;
   const session = await getServerSession(authConfig)
-  const residents = await getResidents(session?.user?.token || '')
-  const page = 0;
+  const residents = await getResidents(session?.user?.token || '', page)
   const rowsPerPage = 5;
 
 
@@ -46,9 +52,8 @@ export default async function Page() {
           </Link>
         </div>
       </Stack>
-      {/*<CustomersFilters/>*/}
       <ResidentsTable
-        count={residents.length}
+        count={residents.totalElements}
         page={page}
         rows={residents.content}
         rowsPerPage={rowsPerPage}

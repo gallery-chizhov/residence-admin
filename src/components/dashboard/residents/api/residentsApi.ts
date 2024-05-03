@@ -6,8 +6,8 @@ import {revalidatePath, revalidateTag} from "next/cache";
 import {createResidentValues} from "@/components/dashboard/residents/CreateResidentForm";
 import {Resident, User} from "@/types/types";
 
-export async function getResidents(token: string) {
-  const res = await fetch(`${baseUrl}resident`, {
+export async function getResidents(token: string, page: number) {
+  const res = await fetch(`${baseUrl}resident?page=${page}&size=10`, {
     headers: {
       "Authorization": `Bearer ${token}`
     },

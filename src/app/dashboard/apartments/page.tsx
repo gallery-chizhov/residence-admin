@@ -13,12 +13,18 @@ import {getApartments} from "@/components/dashboard/apartments/api/apartmentsApi
 import Link from "next/link";
 import {ApartamentsTable} from "@/components/dashboard/apartments/ApartmentsTable";
 
-export const metadata = {title: `Customers | Dashboard | ${config.site.name}`} satisfies Metadata;
+export const metadata = {title: `Апартаменты | Dashboard | ${config.site.name}`} satisfies Metadata;
 
-export default async function Page() {
+export default async function Page({
+                                     searchParams,
+                                   }: {
+  searchParams?: {
+    page: string
+  }
+}) {
+  const page = Number(searchParams?.page) || 0;
   const session = await getServerSession(authConfig)
-  const apartments = await getApartments(session?.user?.token || '')
-  const page = 0;
+  const apartments = await getApartments(session?.user?.token || '', page)
   const rowsPerPage = 5;
 
   return (
@@ -45,7 +51,7 @@ export default async function Page() {
       </Stack>
       {/*<CustomersFilters />*/}
       <ApartamentsTable
-        count={apartments.number}
+        count={apartments.totalElements}
         page={page}
         rows={apartments.content}
         rowsPerPage={rowsPerPage}

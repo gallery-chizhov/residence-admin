@@ -12,7 +12,7 @@ import {getServerSession} from "next-auth";
 import {authConfig} from "@/lib/auth/auth";
 import {getUsers} from "@/components/dashboard/users/api/usersApi";
 
-export const metadata = {title: `Customers | Dashboard | ${config.site.name}`} satisfies Metadata;
+export const metadata = {title: `Пользователи | Dashboard | ${config.site.name}`} satisfies Metadata;
 
 export default async function Page({
                                      searchParams,
